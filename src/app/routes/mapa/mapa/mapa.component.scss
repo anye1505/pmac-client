@@ -1,0 +1,126 @@
+
+.panel-body{
+    padding:0;
+}
+
+.map{
+	width:100%;
+  height:100%;
+	max-height:700px;
+	min-height:200px;
+}
+
+fieldset{
+	padding-bottom:3px;
+	margin-bottom:3px;
+}
+
+#panelMapa{
+  position: absolute;
+	top:30px;
+	right:80px;
+}
+
+#panelCapas{
+  position: absolute;
+  top:70px;
+}
+
+.content-wrapper{
+  padding-bottom:0;
+}
+
+
+
+.tabTable{
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+
+#closeTable{
+  position: absolute;
+  right: 30px;
+  top:10px;
+}
+
+.divTable{
+  display: relative;
+  width:100%;position: absolute;
+  bottom:20px;
+  background: white;
+
+}
+
+.ol-popup {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 390px;
+}
+
+.ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+}
+
+.ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+
+}
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
+
+       .switch {
+        top: 20px;
+        right: 20px;
+        position:absolute;
+        z-index:999;
+        background:white;
+        border:1px solid #cfdbe2;
+        min-width:200px;
+      }
+      .ol-touch .switch {
+        top: 80px;
+      }
+      ul{
+      padding:5px;
+      }
+      li{
+      	list-style-type: none;
+      }
+
+      #popup-content{
+      font-size:10px;
+      }
+
+      p{
+         margin:0;
+      }

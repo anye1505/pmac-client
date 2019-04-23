@@ -1,0 +1,741 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<div class="panel panel-default" style="padding-bottom:0;margin-bottom:0;">
+    <div class="panel-body" >                  
+        <div id="map" class="map"></div>
+        <div [hidden]="!show" class="switch" id="panelCapas">
+            <ul>                            
+                <li><b>Capas</b></li>
+                <li>
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input id="chkLayerAmbiental" type="checkbox" (change)="changeAmbiental($event)"/>
+                           <span class="fa fa-check"></span>Observaciones Ambientales</label>
+                           <button class="btn btn-xs btn-default"  (click)="modalTipoAmbiental.show()" [disabled]="!chkLayerAmbiental">
+                               <img src="assets/img/puntos.png" [hidden]="cmbTipoAmbiental!='1'"  width="20"/>
+                               <img src="assets/img/cluster.png" [hidden]="cmbTipoAmbiental!='2'"  width="20"/>
+                               <img src="assets/img/calor.png" [hidden]="cmbTipoAmbiental!='3'"  width="20"/>
+                           </button>
+                     </div>
+
+                    <div [hidden]="!chkLayerAmbiental">
+
+                         <div class="form-group" [hidden]="cmbTipoAmbiental!='1'">                                
+                            <div class="col-sm-12" style="text-align: left;">
+                                <ul>
+                                    <li><img src="assets/img/icon/MO.gif" /> Material de obra</li>
+                                    <li><img src="assets/img/icon/RS.gif" /> Residuo sólido </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="form-group" [hidden]="cmbTipoAmbiental!='2'">                                
+                            <div class="col-sm-12" style="text-align: center;">
+                                <img src="assets/img/cluster.png"  /> 
+                            </div>
+                        </div>
+
+                        <div class="form-group" [hidden]="cmbTipoAmbiental!='3'">                                
+                            <div class="col-sm-12" style="text-align: center;">
+                                
+                                <img src="assets/img/heatmap.png" /> 
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>                                
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input id="chkLayerGeotecnico"  [(ngModel)]="chkLayerGeotecnico" type="checkbox" (change)="changeGeotecnico($event)"/>
+                           <span class="fa fa-check"></span>Observaciones Geot&eacute;cnicas</label>
+                           <button class="btn btn-xs btn-default"  (click)="modalTipoGeotecnico.show()"  [disabled]="!chkLayerGeotecnico" >
+
+                               <img src="assets/img/puntos.png" [hidden]="cmbTipoGeotecnico!='1'"  width="20"/>
+                               <img src="assets/img/cluster.png" [hidden]="cmbTipoGeotecnico!='2'"  width="20"/>
+                               <img src="assets/img/calor.png" [hidden]="cmbTipoGeotecnico!='3'"  width="20"/>
+                           </button>
+                     </div>
+
+                    <div [hidden]="!chkLayerGeotecnico">
+                        <div class="form-group" [hidden]="cmbTipoGeotecnico!='1' ">                                
+                            <div class="col-sm-12" style="text-align: left;">
+                                <ul>
+                                    <li><img src="assets/img/icon/MOV.gif" /> Movimiento</li>                                    
+                                    <li><img src="assets/img/icon/GRI.gif" /> Grieta </li>
+                                    <li><img src="assets/img/icon/COR.gif" /> Cortacorriente </li>
+                                    <li><img src="assets/img/icon/DES.gif" /> Deslizamiento </li>
+                                    <li><img src="assets/img/icon/ERO.gif" /> Erosión </li>
+                                    <li><img src="assets/img/icon/CAN.gif" /> Canal colector </li>
+                                    <li><img src="assets/img/icon/GAV.gif" /> Gavion </li>
+									<li><img src="assets/img/icon/OTR.gif" /> Otro </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group" [hidden]="cmbTipoGeotecnico!='2'">                                
+                            <div class="col-sm-12" style="text-align: center;">
+                                <img src="assets/img/cluster.png"  /> 
+                            </div>
+                        </div>
+
+                        <div class="form-group" [hidden]="cmbTipoGeotecnico!='3'" >                                
+                            <div class="col-sm-12" style="text-align: center;">
+                                
+                                <img src="assets/img/heatmap.png" /> 
+                            </div>
+                        </div>
+                    </div>
+
+                </li>                            
+                <li>
+                                         
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true"  type="checkbox" (change)="changeLayerDistrito($event)"/>
+                           <span class="fa fa-check"></span>Distrito</label>
+                     </div>
+                </li>
+                <li>
+
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input  [checked]="true" type="checkbox" (change)="changeLayerComunidad($event)"/>
+                           <span class="fa fa-check"></span>Comunidad</label>
+                     </div>
+                 </li>
+                 <li>
+
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true" type="checkbox" (change)="changeLayerDuctos($event)"/>
+                           <span class="fa fa-check"></span>Ductos</label>
+                     </div>
+                 </li>
+                 <li>
+
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true"   type="checkbox" (change)="changeLayerPoste($event)"/>
+                           <span class="fa fa-check"></span>Poste Kilom&eacute;trico</label>
+                     </div>
+                 </li>
+                 <li>                            
+                
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true"   type="checkbox" (change)="changeLayerIncidente($event)"/>
+                           <span class="fa fa-check"></span>Incidente</label>
+                     </div>
+                 </li>
+                 <li>                            
+                
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true"   type="checkbox" (change)="changeLayerDerechoVia($event)"/>
+                           <span class="fa fa-check"></span>Derecho Vía</label>
+                     </div>
+                 </li>
+                 <li>                            
+                
+                     <div class="checkbox c-checkbox">
+                        <label>
+                           <input [checked]="true"   type="checkbox" (change)="changeLayerCapacitacion($event)"/>
+                           <span class="fa fa-check"></span>Capacitación</label>
+                     </div>
+                 </li>
+				 
+            </ul>
+        </div>
+
+        <div [hidden]="showTable" class="divTable">
+                <div id="closeTable" (click)="closeTable()">X</div>
+                <tabset #staticTabs class="tabset" >
+                    <tab heading="Observaciones ambientales" class="tabTable" [hidden]="hiddenTab(1)">
+
+                        <ngx-datatable #table class='bootstrap no-detail-row'  [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="limit" [rows]='rows'     
+                        (activate)="onActivate($event)"
+                        (select)='onSelect($event)'
+                        [selected]="selected"
+                        [selectionType]="'single'"
+                        >
+                        >
+         <ngx-datatable-column prop="com_nombre" name="Nombre"  [width]="80" 
+          [resizeable]="true"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+          <ngx-datatable-column prop="com_ubicacion" name="Ubicación" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="clasificacion" name="Clasificación" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="true"></ngx-datatable-column>
+                            <ngx-datatable-column prop="descripcion" name="Descripción"  [width]="250"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_identificacion" name="Identificación"  [width]="90"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_ultimo_reporte" name="Último reporte"  [width]="40"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_levantada" name="Levantada"  [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="existente" name="Existente" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="tipo_observacion" name="Tipo observación"  [width]="100"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="tiempo_sin_resolver" name="Tiempo sin resolver" [width]="100"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                        </ngx-datatable>
+                    </tab>
+                    <tab heading="Observaciones geotécnicas" class="tabTable"  [hidden]="hiddenTab(2)" >   
+                      <ngx-datatable #table class='bootstrap no-detail-row'  [columnMode]="'force'" [footerHeight]="50" [rowHeight]="'auto'" [limit]="limit" [rows]='rows2'     
+                        (activate)="onActivate($event)"
+                        (select)='onSelect2($event)'
+                        [selected]="selected2"
+                        [selectionType]="'single'"
+                        >
+                        >
+                            <ngx-datatable-column prop="com_nombre" name="Nombre"  [width]="80" 
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="com_ubicacion" name="Ubicación" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="clasificacion" name="Clasificación" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="true"></ngx-datatable-column>
+                            <ngx-datatable-column prop="descripcion" name="Descripción"  [width]="200"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_identificacion" name="Identificación"  [width]="90"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_ultimo_reporte" name="Último reporte"  [width]="100"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="fecha_levantada" name="Levantada"  [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="existente" name="Existente" [width]="80"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                            <ngx-datatable-column prop="tipo_observacion" name="Tipo observación"  [width]="100"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false"></ngx-datatable-column>
+                            <ngx-datatable-column prop="tiempo_sin_resolver" name="Tiempo sin resolver" [width]="100"
+          [resizeable]="false"
+          [sortable]="true"
+          [draggable]="false"
+          [canAutoResize]="false" ></ngx-datatable-column>
+                        </ngx-datatable>
+                        <!--                     
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>        
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Ubicación</th>
+                                    <th>Clasificación</th>
+                                    <th>Descripción</th>
+                                    <th>Identificación </th>
+                                    <th>Ultimo reporte </th>
+                                    <th>Levantada </th>
+                                    <th>Existente</th>
+                                    <th>Tipo Observación</th>
+                                    <th>Tiempo sin resolver </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                  <tr *ngFor="let geotecnica of tablaGeotecnicas ">
+                                    <td > {{ geotecnica.com_nombre }} </td>
+                                    <td > {{ geotecnica.com_ubicacion }} </td>
+                                    <td > {{ geotecnica.clasificacion }} </td>
+                                    <td > {{ geotecnica.descripcion }} </td>
+                                    <td > {{ geotecnica.fecha_identificacion }} </td>
+                                    <td > {{ geotecnica.fecha_ultimo_reporte }} </td>
+                                    <td > {{ geotecnica.fecha_levantada }} </td>
+                                    <td > {{ geotecnica.existente }} </td>
+                                    <td > {{ geotecnica.tipo_observacion }} </td>
+                                    <td > {{ geotecnica.tiempo_sin_resolver }} </td>
+                                  </tr>
+                            </tbody>
+
+                        </table>
+                    -->
+                    </tab>
+                    <!--<tab heading="Static Title 2">Static content 2</tab>
+                    <tab heading="Static Title 3">Static content 3</tab>-->
+                </tabset>
+<!--
+            <div>
+                Detalle de tabla
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                        </tr>                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        -->
+        </div>
+    </div>
+</div>
+
+
+<div id="panelMapa">
+  <button id="botonAmbiental" type="button" (click)="modalAmbiental.show()" >Observaciones ambientales</button>
+  <button id="botonGeotecnico" type="button" (click)="modalGeotecnico.show()" >Observaciones Geotécnicas</button>
+  <button id="botonCapas" tooltip="Capas"  type="button" (click)="visualizarPanel()" >
+    <i class="icon-layers" _ngcontent-c26=""></i>
+  </button>
+</div>
+
+     <div id="popup" class="ol-popup" >
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
+
+
+<div  class="modal fade " bsModal #modalAmbiental="bs-modal"  role="dialog" aria-labelledby="modalAmbiental" aria-hidden="true" >
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Observaciones Ambientales</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalAmbiental.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                        <form id="idFormBuscarAmbiental" class="form-horizontal" [formGroup]="formBuscarAmbiental" (submit)="submitFormAmbiental($event, formBuscarAmbiental.value)"  >
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Comunidad ARC</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="com_nombre"
+                                            bindValue="com_id"
+                                            [items]="ambiental_comunidades"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar "
+                                            formControlName="comunidad" 
+                                            [formControl]="formBuscarAmbiental.controls['comunidad']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Tipo Observación</label>
+                                <div class="col-sm-10">                            
+                                    <ng-select            
+                                            bindLabel="tipo_observacion"
+                                            bindValue="tipo_observacion"
+                                            [items]="ambiental_observaciones"
+                                            [multiple]="true"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar"
+                                            formControlName="observacion" 
+                                            [formControl]="formBuscarAmbiental.controls['observacion']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>  
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Existente</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="existente"
+                                            bindValue="existente"
+                                            [items]="ambiental_existentes"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar"
+                                            formControlName="existente" 
+                                            [formControl]="formBuscarAmbiental.controls['existente']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Clasificación</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="clasificacion"
+                                            bindValue="clasificacion"
+                                            [items]="ambiental_clasificaciones"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar Clasificación"
+                                            formControlName="clasificacion" 
+                                            [formControl]="formBuscarAmbiental.controls['clasificacion']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="control-label col-sm-12">Fecha de identificación</label>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Desde</label>
+                                <div class="col-sm-4">
+                                                 
+                                    <input class="form-control input-sm" type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" formControlName="desde" [formControl]="formBuscarAmbiental.controls['desde']" />
+                                    <span class="text-danger" *ngIf="formBuscarAmbiental.controls['desde'].hasError('date') && (formBuscarAmbiental.controls['desde'].dirty || formBuscarAmbiental.controls['desde'].touched)">Fecha erronea</span>
+                                </div>
+                                <label class="control-label col-sm-2">Hasta</label>
+                                <div class="col-sm-4">
+                                                 
+                                    <input class="form-control input-sm" type="text" formControlName="hasta"  bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  [formControl]="formBuscarAmbiental.controls['hasta']" />
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Descripción</label>
+                                <div class="col-sm-10">                                    
+                                    <input class="form-control input-sm" type="text"  [formControl]="formBuscarAmbiental.controls['descripcion']" />
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="ball-clip-rotate" style="height:20px;float:left;" [ngClass]="{hidden : formLoading !== true }">
+                    <div></div>
+                </div>
+                <!--<button [disabled]="formLoading"  form="idFormBuscarAmbiental" class="btn btn-primary">Buscar</button>-->
+                <button [disabled]="formLoading"  type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+                        </form>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " bsModal #modalGeotecnico="bs-modal"  role="dialog" aria-labelledby="modalGeotecnico" aria-hidden="true" >
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Observaciones Geotécnico</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalGeotecnico.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                        <form id="idFormBuscarGeotecnico" class="form-horizontal" [formGroup]="formBuscarGeotecnico" (submit)="submitFormGeotecnico($event, formBuscarGeotecnico.value)"  >
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Comunidad ARC</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="com_nombre"
+                                            bindValue="com_id"
+                                            [items]="geotecnico_comunidades"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar "
+                                            formControlName="comunidad" 
+                                            [formControl]="formBuscarGeotecnico.controls['comunidad']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Tipo Observación</label>
+                                <div class="col-sm-10">                            
+                                    <ng-select            
+                                            bindLabel="tipo_observacion"
+                                            bindValue="tipo_observacion"
+                                            [items]="geotecnico_observaciones"
+                                            [multiple]="true"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar"
+                                            formControlName="observacion" 
+                                            [formControl]="formBuscarGeotecnico.controls['observacion']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>  
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Existente</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="existente"
+                                            bindValue="existente"
+                                            [items]="geotecnico_existentes"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar"
+                                            formControlName="existente" 
+                                            [formControl]="formBuscarGeotecnico.controls['existente']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Clasificación</label>
+                                <div class="col-sm-10">
+                                    <ng-select            
+                                                            
+                                            bindLabel="clasificacion"
+                                            bindValue="clasificacion"
+                                            [items]="geotecnico_clasificaciones"
+                                            [multiple]="false"
+                                            [closeOnSelect]="true"
+                                            placeholder="Seleccionar Clasificación"
+                                            formControlName="clasificacion" 
+                                            [formControl]="formBuscarGeotecnico.controls['clasificacion']"
+                                        >
+                                    </ng-select> 
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="control-label col-sm-12">Fecha de identificación</label>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Desde</label>
+                                <div class="col-sm-4">
+                                                 
+                                    <input class="form-control input-sm" type="text"  bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  formControlName="desde" [formControl]="formBuscarGeotecnico.controls['desde']" />
+
+                                     <span class="text-danger" *ngIf="formBuscarGeotecnico.controls['desde'].hasError('date') && (formBuscarGeotecnico.controls['desde'].dirty || formBuscarGeotecnico.controls['desde'].touched)">Fecha erronea</span>
+
+                                </div>
+                                <label class="control-label col-sm-2">Hasta</label>
+                                <div class="col-sm-4">
+                                                 
+                                    <input class="form-control input-sm" type="text"  bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  formControlName="hasta" [formControl]="formBuscarGeotecnico.controls['hasta']" />
+
+                                     <span class="text-danger" *ngIf="formBuscarGeotecnico.controls['hasta'].hasError('date') && (formBuscarGeotecnico.controls['hasta'].dirty || formBuscarGeotecnico.controls['hasta'].touched)">Fecha erronea</span>
+
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label class="control-label col-sm-2">Descripción</label>
+                                <div class="col-sm-10">                                    
+                                    <input class="form-control input-sm" type="text"  [formControl]="formBuscarGeotecnico.controls['descripcion']" />
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="ball-clip-rotate" style="height:20px;float:left;" [ngClass]="{hidden : formLoading !== true }">
+                    <div></div>
+                </div>
+                <!--<button [disabled]="formLoading"  form="idFormBuscarGeotecnico" class="btn btn-primary">Buscar</button>-->
+                <button [disabled]="formLoading"  type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+                        </form>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade " bsModal #modalTipoAmbiental="bs-modal"  role="dialog" aria-labelledby="modalTipoAmbiental" aria-hidden="true" >
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Tipo de Capa Ambiental</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalTipoAmbiental.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div  class="form-horizontal" >
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Tipo</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input-sm"  [(ngModel)]="cmbTipoAmbiental" #ctrl="ngModel" (change)="changeCapaAmbiental()" >
+                                        <option value="1">Puntos individual</option>
+                                        <option value="2">Mapa de Cluster</option>
+                                        <option value="3">Mapa de Calor</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-group" [hidden]="cmbTipoAmbiental!='1'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <ul>
+                                        <li><img src="assets/img/icon/MO.gif" /> MO</li>
+                                        <li><img src="assets/img/icon/RS.gif" /> RS </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" [hidden]="cmbTipoAmbiental!='2'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <img src="assets/img/cluster.png"  /> 
+                                </div>
+                            </div>
+
+                            <div class="form-group" [hidden]="cmbTipoAmbiental!='3'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    
+                                    <img src="assets/img/heatmap.png" /> 
+                                </div>
+                            </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade " bsModal #modalTipoGeotecnico="bs-modal"  role="dialog" aria-labelledby="modalTipoGeotecnico" aria-hidden="true" >
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">Tipo de Capa Geotécnico</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalTipoGeotecnico.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div  class="form-horizontal" >
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Tipo</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control input-sm" [(ngModel)]="cmbTipoGeotecnico" #ctrl="ngModel" (change)="changeCapaGeotecnico()">
+                                        <option value="1" >Puntos individuales</option>
+                                        <option value="2">Mapa Cluster</option>
+                                        <option value="3">Mapa de Calor</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" [hidden]="cmbTipoGeotecnico!='1'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <ul>
+                                        <li><img src="assets/img/icon/MOV.gif" /> MOV</li>
+                                        <li><img src="assets/img/icon/OTR.gif" /> OTR </li>
+                                        <li><img src="assets/img/icon/GRI.gif" /> GRI </li>
+                                        <li><img src="assets/img/icon/COR.gif" /> COR </li>
+                                        <li><img src="assets/img/icon/DES.gif" /> DES </li>
+                                        <li><img src="assets/img/icon/ERO.gif" /> ERO </li>
+                                        <li><img src="assets/img/icon/CAN.gif" /> CAN </li>
+                                        <li><img src="assets/img/icon/GAV.gif" /> GAV </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group" [hidden]="cmbTipoGeotecnico!='2'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    <img src="assets/img/cluster.png"  /> 
+                                </div>
+                            </div>
+
+                            <div class="form-group" [hidden]="cmbTipoGeotecnico!='3'">                                
+                                <div class="col-sm-12" style="text-align: center;">
+                                    
+                                    <img src="assets/img/heatmap.png" /> 
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade " bsModal #modalImagenes="bs-modal"  role="dialog" aria-labelledby="modalImagenes" aria-hidden="true" >
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <!--<div class="modal-header">
+                <h4 class="modal-title pull-left">Tipo de Capa Geotécnico</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalTipoGeotecnico.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>-->
+            <div class="modal-body">
+              <carousel>
+                 <slide *ngFor="let slide of slides; let index=index">
+                  <img [src]="slide.image" alt="image slide" style="display: block; width: 100%;">
+               
+                  <!--<div class="carousel-caption">
+                    <h4>Slide {{index}}</h4>
+                    <p>{{slide.text}}</p>
+                  </div>-->
+                </slide>
+              </carousel>
+            </div>            
+        </div>
+    </div>
+</div>
+

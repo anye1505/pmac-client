@@ -1,0 +1,235 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<div class="panel panel-default">
+  <div class="panel-heading">
+      <div class="panel-title"><h3 _ngcontent-c8>Observaciones Ambientales y Geotécnicas</h3></div>
+  </div>
+  <div class="panel-body">
+     <form class="form-horizontal" [formGroup]="formBuscar" (submit)="submitFormAmbiental($event, formBuscar.value)"  >
+		<div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">   
+                    <label class="col-sm-5">Desde</label>               
+                    <div class="col-sm-7">
+                        <ng-select                                
+                                bindLabel="name"
+                                bindValue="value"
+                                [items]="anios"
+                                [multiple]="false"
+                                [closeOnSelect]="true"
+                                placeholder="Seleccionar "
+                                formControlName="desde_anio" 
+                                [formControl]="formBuscar.controls['desde_anio']"                           >
+                        </ng-select> 
+                        <span class="text-danger" *ngIf="formBuscar.controls['desde_anio'].hasError('required') && (formBuscar.controls['desde_anio'].dirty || formBuscar.controls['desde_anio'].touched)">Obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">            
+                    <div class="col-sm-12">
+                        <ng-select                                
+                                bindLabel="name"
+                                bindValue="value"
+                                [items]="meses"
+                                [multiple]="false"
+                                [closeOnSelect]="true"
+                                placeholder="Seleccionar "
+                                formControlName="desde_mes" 
+                                [formControl]="formBuscar.controls['desde_mes']"                            >
+                        </ng-select> 
+                        <span class="text-danger" *ngIf="formBuscar.controls['desde_mes'].hasError('required') && (formBuscar.controls['desde_mes'].dirty || formBuscar.controls['desde_mes'].touched)">Obligatorio</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-3">
+                <div class="form-group">   
+                    <label class="col-sm-5">Hasta</label>               
+                    <div class="col-sm-7">
+                        <ng-select                                
+                                bindLabel="name"
+                                bindValue="value"
+                                [items]="anios"
+                                [multiple]="false"
+                                [closeOnSelect]="true"
+                                placeholder="Seleccionar "
+                                formControlName="hasta_anio" 
+                                [formControl]="formBuscar.controls['hasta_anio']"                           >
+                        </ng-select> 
+                        <span class="text-danger" *ngIf="formBuscar.controls['hasta_anio'].hasError('required') && (formBuscar.controls['hasta_anio'].dirty || formBuscar.controls['hasta_anio'].touched)">Obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">                
+                    <div class="col-sm-12">
+                        <ng-select                                
+                                bindLabel="name"
+                                bindValue="value"
+                                [items]="meses"
+                                [multiple]="false"
+                                [closeOnSelect]="true"
+                                placeholder="Seleccionar "
+                                formControlName="hasta_mes" 
+                                [formControl]="formBuscar.controls['hasta_mes']"                            >
+                        </ng-select> 
+                        
+                        <span class="text-danger" *ngIf="formBuscar.controls['hasta_mes'].hasError('required') && (formBuscar.controls['hasta_mes'].dirty || formBuscar.controls['hasta_mes'].touched)">Obligatorio</span>
+                    </div>
+                </div>
+            </div>
+            <!--
+     		<div class="col-sm-4">
+     			<div class="form-group">
+     				<label class="col-sm-4">Desde</label>  				
+     				<div class="col-sm-8">
+                        <input class="form-control input-sm" type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'MM/YYYY' }" formControlName="desde" [formControl]="formBuscar.controls['desde']" />
+                        <span class="text-danger" *ngIf="formBuscar.controls['desde'].hasError('date') && (formBuscar.controls['desde'].dirty || formBuscar.controls['desde'].touched)">Fecha erronea</span>
+     				</div>
+     			</div>
+     		</div>
+     		<div class="col-sm-4">
+     			<div class="form-group">   
+     				<label class="col-sm-4">Hasta</label>  				
+     				<div class="col-sm-8">
+                        <input class="form-control input-sm" type="text" bsDatepicker #dp="bsDatepicker" [bsConfig]="{ dateInputFormat: 'MM/YYYY' }" formControlName="hasta" [formControl]="formBuscar.controls['hasta']" />
+                        <span class="text-danger" *ngIf="formBuscar.controls['hasta'].hasError('date') && (formBuscar.controls['hasta'].dirty || formBuscar.controls['hasta'].touched)">Fecha erronea</span>
+     				</div>
+     			</div>
+     		</div>
+        -->
+     	</div>
+
+     	<div class="row">
+            <!--<div class="col-sm-4">
+                <div class="form-group">  
+                    <label class="col-sm-4">Categoría</label>           
+                    <div class="col-sm-8">                  
+                        <ng-select                                
+                                bindLabel="name"
+                                bindValue="value"
+                                [items]="categoria_observacion"
+                                [multiple]="false"
+                                [closeOnSelect]="true"
+                                placeholder="Seleccionar "
+                                formControlName="categoria_observacion" 
+                                [formControl]="formBuscar.controls['categoria_observacion']"
+                                (change)="onSelectCategoria($event)"
+                            >
+                        </ng-select> 
+                        <span class="text-danger" *ngIf="formBuscar.controls['categoria_observacion'].hasError('required') && (formBuscar.controls['categoria_observacion'].dirty || formBuscar.controls['categoria_observacion'].touched)">Categoria obligatoria</span>
+                    </div>
+                </div>
+            </div>-->
+     		<div class="col-sm-4">
+     			<div class="form-group">  
+     				<label class="col-sm-4">Comunidad</label>  		
+     				<div class="col-sm-8">	   				   				
+				     	<ng-select                                
+				                bindLabel="com_nombre"
+				                bindValue="com_id"
+				                [items]="comunidades"
+				                [multiple]="true"
+				                [closeOnSelect]="false"
+				                placeholder="Seleccionar "
+				                formControlName="comunidad" 
+				                [formControl]="formBuscar.controls['comunidad']"
+				            >
+				        </ng-select> 
+				    </div>
+     			</div>
+     		</div>
+<!--
+     		<div class="col-sm-4">
+     			<div class="form-group">  
+     				<label class="col-sm-4">Tipo</label>  		
+     				<div class="col-sm-8">	   				
+				     	<ng-select                                
+				                bindLabel="tipo_observacion"
+				                bindValue="tipo_observacion"
+				                [items]="tipo_observacion"
+				                [multiple]="true"
+				                [closeOnSelect]="false"
+				                placeholder="Seleccionar "
+				                formControlName="tipo_observacion" 
+				                [formControl]="formBuscar.controls['tipo_observacion']"
+				            >
+				        </ng-select> 
+				    </div>
+     			</div>
+     		</div>-->
+     	</div>
+     	<div class="form-group">
+            <div class="col-sm-12">
+                <button [disabled]="formLoading"  type="submit" class="btn btn-primary">Buscar</button>
+                <div class="ball-clip-rotate" style="height:20px;float:right;" [ngClass]="{hidden : formLoading !== true }">
+                    <div></div>
+                </div>
+            </div>
+     	</div>
+     </form>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-6 " >
+          <div [chart]="chart1"></div>
+        </div>
+        <div class="col-sm-6 " >
+          <div [chart]="chart2"></div>
+        </div>
+    </div>    
+      <hr> 
+
+    <div class="row">
+        <div class="col-sm-12 " >
+          <div [chart]="chart3"></div>
+        </div>
+    </div>    
+      
+      <!--<hr> 
+
+    <div class="row">
+        <div class="col-sm-4" >
+            <div class="row">
+                <div class="col-sm-12" >
+                  <div [chart]="chartPie"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">            
+          <ngx-datatable
+            class="bootstrap ngx-datatable fixed-header"
+            [rows]="rows"
+            [loadingIndicator]="loadingIndicator"
+            [columns]="columns"
+            [columnMode]="'force'"
+            [headerHeight]="50"
+            [footerHeight]="50"
+            [rowHeight]="'auto'"
+            [reorderable]="reorderable">
+          </ngx-datatable>
+        </div>
+    </div>  -->
+      <hr>
+    <div class="row">
+        <div class="col-sm-12 " >
+          <div [chart]="chartObservacion"></div>
+        </div>
+    </div>    
+      <hr> 
+    <div class="row">
+        <div class="col-sm-12 " >
+          <div [chart]="chartObservacionNueva"></div>
+        </div>
+    </div>
+      <hr>
+<!---
+    <div class="row">
+        <div class="col-sm-12" >
+          <div [chart]="chartObservacionTipo"></div>
+        </div>
+    </div>
+  -->
+  </div>
+</div>

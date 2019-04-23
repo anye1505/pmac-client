@@ -1,0 +1,168 @@
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<!--<div class="content-heading">
+  Indicador
+    <small></small>
+</div>-->
+<toaster-container [toasterconfig]="toasterconfig"></toaster-container>
+<div class="panel panel-default">
+  	<div class="panel-heading">
+      	<div class="panel-title"><h3 _ngcontent-c8>Gestión social</h3></div>
+  	</div>
+  	<div class="panel-body">
+     	<form class="form-horizontal" [formGroup]="formBuscar" (submit)="submitFormAmbiental($event, formBuscar.value)"  >
+			<div class="row">
+	     		<div class="col-sm-3">
+	     			<div class="form-group">   
+	     				<label class="col-sm-5">Desde</label>  				
+	     				<div class="col-sm-7">
+	                        <ng-select                                
+					                bindLabel="name"
+					                bindValue="value"
+					                [items]="anios"
+					                [multiple]="false"
+					                [closeOnSelect]="true"
+					                placeholder="Seleccionar "
+					                formControlName="desde_anio" 
+					                [formControl]="formBuscar.controls['desde_anio']"				            >
+					        </ng-select> 
+					        <span class="text-danger" *ngIf="formBuscar.controls['desde_anio'].hasError('required') && (formBuscar.controls['desde_anio'].dirty || formBuscar.controls['desde_anio'].touched)">Obligatorio</span>
+	     				</div>
+	     			</div>
+	     		</div>
+	     		<div class="col-sm-3">
+	     			<div class="form-group">   			
+	     				<div class="col-sm-12">
+	                        <ng-select                                
+					                bindLabel="name"
+					                bindValue="value"
+					                [items]="meses"
+					                [multiple]="false"
+					                [closeOnSelect]="true"
+					                placeholder="Seleccionar "
+					                formControlName="desde_mes" 
+					                [formControl]="formBuscar.controls['desde_mes']"				            >
+					        </ng-select> 
+					        <span class="text-danger" *ngIf="formBuscar.controls['desde_mes'].hasError('required') && (formBuscar.controls['desde_mes'].dirty || formBuscar.controls['desde_mes'].touched)">Obligatorio</span>
+	     				</div>
+	     			</div>
+	     		</div>
+
+
+	     		<div class="col-sm-3">
+	     			<div class="form-group">   
+	     				<label class="col-sm-5">Hasta</label>  				
+	     				<div class="col-sm-7">
+	                        <ng-select                                
+					                bindLabel="name"
+					                bindValue="value"
+					                [items]="anios"
+					                [multiple]="false"
+					                [closeOnSelect]="true"
+					                placeholder="Seleccionar "
+					                formControlName="hasta_anio" 
+					                [formControl]="formBuscar.controls['hasta_anio']"				            >
+					        </ng-select> 
+                        	<span class="text-danger" *ngIf="formBuscar.controls['hasta_anio'].hasError('required') && (formBuscar.controls['hasta_anio'].dirty || formBuscar.controls['hasta_anio'].touched)">Obligatorio</span>
+	     				</div>
+	     			</div>
+	     		</div>
+	     		<div class="col-sm-3">
+	     			<div class="form-group">   				
+	     				<div class="col-sm-12">
+	                        <ng-select                                
+					                bindLabel="name"
+					                bindValue="value"
+					                [items]="meses"
+					                [multiple]="false"
+					                [closeOnSelect]="true"
+					                placeholder="Seleccionar "
+					                formControlName="hasta_mes" 
+					                [formControl]="formBuscar.controls['hasta_mes']"				            >
+					        </ng-select> 
+                        	<span class="text-danger" *ngIf="formBuscar.controls['hasta_mes'].hasError('required') && (formBuscar.controls['hasta_mes'].dirty || formBuscar.controls['hasta_mes'].touched)">Obligatorio</span>
+	     				</div>
+	     			</div>
+	     		</div>
+	     	</div>
+	     	<div class="form-group">
+	            <div class="col-sm-12">
+	                <button [disabled]="formLoading"  type="submit" class="btn btn-primary">Buscar</button>
+	                <div class="ball-clip-rotate" style="height:20px;float:right;" [ngClass]="{hidden : formLoading !== true }">
+	                    <div></div>
+	                </div>
+	            </div>
+	     	</div>
+	    </form>
+    	<hr>
+
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartViviendas"></div>
+	        </div>
+	    </div>  
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartInstalacion"></div>
+	        </div>
+	    </div>  
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartComercios"></div>
+	        </div>
+	    </div>  
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartComerciosCrecimiento"></div>
+	        </div>
+	    </div>  
+    	<hr>
+	    
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartFaenas"></div>
+	        </div>
+	    </div>  
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartBuble"></div>
+	        </div>
+	    </div>   
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartChacras"></div>
+	        </div>
+	    </div>   
+    	<hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartAnimales"></div>
+	        </div>
+	    </div> 
+
+	    <hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartBublePesca"></div>
+	        </div>
+	    </div>  
+	    <hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartPesca"></div>
+	        </div>
+	    </div>
+	    <hr>
+	    <div class="row">
+	        <div class="col-sm-12" >
+	            <div [chart]="chartPeces"></div>
+	        </div>
+	    </div> 
+
+	</div>
+</div>
+
